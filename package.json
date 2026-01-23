@@ -1,0 +1,74 @@
+{
+  "name": "@payloadcms/plugin-google-analytics",
+  "version": "1.0.0",
+  "description": "Google Analytics 4 dashboard widgets plugin for Payload",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./types": {
+      "types": "./dist/exports/types.d.ts",
+      "import": "./dist/exports/types.js",
+      "default": "./dist/exports/types.js"
+    },
+    "./widgets/*": {
+      "types": "./dist/widgets/*.d.ts",
+      "import": "./dist/widgets/*.js",
+      "default": "./dist/widgets/*.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "ga-widgets-dark.png",
+    "ga-widgets-light.png"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "prepublishOnly": "pnpm run build"
+  },
+  "keywords": [
+    "payload",
+    "payloadcms",
+    "plugin",
+    "google-analytics",
+    "ga4",
+    "dashboard",
+    "widgets",
+    "analytics"
+  ],
+  "author": "Sean Zubrickas <zubricks@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zubricks/payload-plugin-google-analytics"
+  },
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "peerDependencies": {
+    "payload": "^3.0.0",
+    "next": "^15.0.0 || ^15.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "@types/react": "^19.0.6",
+    "payload": "^3.0.0",
+    "typescript": "^5.7.3"
+  },
+  "engines": {
+    "node": "^18.20.2 || >=20.9.0"
+  }
+}

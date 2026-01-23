@@ -1,0 +1,111 @@
+import type { Config, Plugin } from 'payload'
+
+export interface GoogleAnalyticsPluginConfig {
+  /**
+   * Google Analytics GA4 Property ID
+   * @example "123456789"
+   */
+  propertyId?: string
+
+  /**
+   * Base64 encoded Google Service Account credentials JSON
+   * Required for connecting to Google Analytics Data API
+   */
+  credentials?: string
+
+  /**
+   * Enable demo mode to display mock data instead of real analytics
+   * @default false
+   */
+  useDemoData?: boolean
+
+  /**
+   * Widgets to enable. By default, all widgets are enabled.
+   * @default ['analytics-overview', 'top-pages', 'active-users', 'channel-groups']
+   */
+  enabledWidgets?: Array<'analytics-overview' | 'top-pages' | 'active-users' | 'channel-groups'>
+
+  /**
+   * Default dashboard layout configuration
+   * If not provided, widgets will be added but not included in default layout
+   */
+  defaultLayout?: Array<{
+    widgetSlug: string
+    width?: 'x-small' | 'small' | 'medium' | 'large' | 'x-large' | 'full'
+  }>
+}
+
+export const googleAnalytics =
+  (pluginConfig: GoogleAnalyticsPluginConfig = {}): Plugin =>
+  (incomingConfig: Config): Config => {
+    const {
+      enabledWidgets = ['analytics-overview', 'top-pages', 'active-users', 'channel-groups'],
+      defaultLayout,
+    } = pluginConfig
+
+    // Widget definitions
+    const widgetDefinitions = {
+      'analytics-overview': {
+        slug: 'analytics-overview',
+        ComponentPath: '@payloadcms/plugin-google-analytics/widgets/AnalyticsMetrics#default',
+        label: 'Analytics Overview',
+        minWidth: 'medium' as const,
+      },
+      'top-pages': {
+        slug: 'top-pages',
+        ComponentPath: '@payloadcms/plugin-google-analytics/widgets/AnalyticsTopPages#default',
+        label: 'Top Pages',
+        minWidth: 'medium' as const,
+      },
+      'active-users': {
+        slug: 'active-users',
+        ComponentPath: '@payloadcms/plugin-google-analytics/widgets/ActiveUsers#default',
+        label: 'Active Users',
+        minWidth: 'x-small' as const,
+      },
+      'channel-groups': {
+        slug: 'channel-groups',
+        ComponentPath: '@payloadcms/plugin-google-analytics/widgets/ChannelGroups#default',
+        label: 'Sessions by Channel',
+        minWidth: 'x-small' as const,
+      },
+    }
+
+    // Filter widgets based on enabledWidgets config
+    const widgets = enabledWidgets.map((widgetKey) => widgetDefinitions[widgetKey]).filter(Boolean)
+
+    // Merge with existing config
+    const config: Config = {
+      ...incomingConfig,
+      admin: {
+        ...incomingConfig.admin,
+        dashboard: {
+          ...incomingConfig.admin?.dashboard,
+          // Add widgets to existing dashboard widgets
+          widgets: [...(incomingConfig.admin?.dashboard?.widgets || []), ...widgets],
+          // If defaultLayout is provided in plugin config, merge it
+          ...(defaultLayout && {
+            defaultLayout: [
+              ...(Array.isArray(incomingConfig.admin?.dashboard?.defaultLayout)
+                ? incomingConfig.admin.dashboard.defaultLayout
+                : []),
+              ...defaultLayout,
+            ],
+          }),
+        },
+      },
+      // Store plugin config in a custom field for API routes to access
+      custom: {
+        ...incomingConfig.custom,
+        googleAnalytics: {
+          propertyId: pluginConfig.propertyId || process.env.GA_PROPERTY_ID,
+          credentials: pluginConfig.credentials || process.env.GA_CREDENTIALS,
+          useDemoData: pluginConfig.useDemoData ?? process.env.GA_USE_DEMO_DATA === 'true',
+        },
+      },
+    }
+
+    return config
+  }
+
+export * from './exports/types'
