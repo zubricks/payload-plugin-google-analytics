@@ -269,39 +269,6 @@ The plugin automatically uses environment variables by default, making it easy t
 3. Run your development server
 4. Widgets will appear in the dashboard
 
-### Testing with Demo Data
-
-For development without real GA data:
-
-```bash
-GA_USE_DEMO_DATA=true pnpm dev
-```
-
-## Publishing to NPM
-
-When ready to publish as a standalone package:
-
-1. Move the plugin to its own repository
-2. Update `package.json` with proper exports
-3. Add TypeScript types
-4. Publish to npm
-
-Example `package.json`:
-
-```json
-{
-  "name": "@your-org/payload-plugin-google-analytics",
-  "version": "1.0.0",
-  "type": "module",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    }
-  }
-}
-```
-
 ## License
 
 MIT
