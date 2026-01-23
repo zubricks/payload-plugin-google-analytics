@@ -1,6 +1,6 @@
 {
   "name": "@zubricks/plugin-google-analytics",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Google Analytics 4 dashboard widgets plugin for Payload",
   "type": "module",
   "main": "./dist/index.js",
