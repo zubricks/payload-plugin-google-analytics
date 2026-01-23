@@ -20,11 +20,11 @@ Display Google Analytics 4 (GA4) metrics directly in your Payload Admin dashboar
 ### 1. Install the Plugin
 
 ```bash
-npm install @payloadcms/plugin-google-analytics
+npm install @zubricks/plugin-google-analytics
 # or
-yarn add @payloadcms/plugin-google-analytics
+yarn add @zubricks/plugin-google-analytics
 # or
-pnpm add @payloadcms/plugin-google-analytics
+pnpm add @zubricks/plugin-google-analytics
 ```
 
 ### 2. Copy API Routes
@@ -32,19 +32,20 @@ pnpm add @payloadcms/plugin-google-analytics
 The plugin requires three API routes to fetch data from Google Analytics. Copy the API routes to your Next.js app:
 
 ```bash
-# From your project root
-cp -r node_modules/@payloadcms/plugin-google-analytics/dist/api/analytics src/app/api/
+# From your project root (creates api directory if it doesn't exist)
+mkdir -p src/app/api
+cp -r node_modules/@zubricks/plugin-google-analytics/dist/api/analytics src/app/api/
 ```
 
 Or manually create symlinks:
 
 ```bash
-cd src/app/api
-mkdir -p analytics
-cd analytics
-ln -s ../../../../node_modules/@payloadcms/plugin-google-analytics/dist/api/analytics/active-users active-users
-ln -s ../../../../node_modules/@payloadcms/plugin-google-analytics/dist/api/analytics/pageviews pageviews
-ln -s ../../../../node_modules/@payloadcms/plugin-google-analytics/dist/api/analytics/channel-groups channel-groups
+# Create api directory if it doesn't exist
+mkdir -p src/app/api/analytics
+cd src/app/api/analytics
+ln -s ../../../../node_modules/@zubricks/plugin-google-analytics/dist/api/analytics/active-users active-users
+ln -s ../../../../node_modules/@zubricks/plugin-google-analytics/dist/api/analytics/pageviews pageviews
+ln -s ../../../../node_modules/@zubricks/plugin-google-analytics/dist/api/analytics/channel-groups channel-groups
 ```
 
 ### 3. Google Cloud Setup
@@ -130,7 +131,7 @@ cat path/to/your-service-account-key.json | base64 | pbcopy
 ### 5. Add Plugin to Payload Config
 
 ```typescript
-import { googleAnalytics } from '@payloadcms/plugin-google-analytics'
+import { googleAnalytics } from '@zubricks/plugin-google-analytics'
 
 export default buildConfig({
   // ... other config

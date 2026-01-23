@@ -9,7 +9,7 @@ This guide explains how to publish the Google Analytics plugin to npm.
    ```bash
    npm login
    ```
-3. **Package Name**: The package name `@payloadcms/plugin-google-analytics` requires access to the `@payloadcms` scope
+3. **Package Name**: The package name `@zubricks/plugin-google-analytics` uses the `@zubricks` scope
 
 ## Package Scope Options
 
@@ -97,12 +97,12 @@ Test in a local Payload project before publishing:
 npm link
 
 # In your Payload project
-npm link @payloadcms/plugin-google-analytics
+npm link @zubricks/plugin-google-analytics
 
 # Test that everything works
 
 # Unlink when done testing
-npm unlink @payloadcms/plugin-google-analytics
+npm unlink @zubricks/plugin-google-analytics
 ```
 
 ### 3. Check Package Contents
@@ -131,10 +131,10 @@ npm publish
 
 ### 5. Verify Publication
 
-1. Check the package page: `https://www.npmjs.com/package/@payloadcms/plugin-google-analytics`
+1. Check the package page: `https://www.npmjs.com/package/@zubricks/plugin-google-analytics`
 2. Try installing in a test project:
    ```bash
-   npm install @payloadcms/plugin-google-analytics
+   npm install @zubricks/plugin-google-analytics
    ```
 3. Verify the widgets appear in the dashboard
 
@@ -187,13 +187,13 @@ npm version major  # 1.0.0 -> 2.0.0
 ⚠️ Only use within 72 hours of publishing:
 
 ```bash
-npm unpublish @payloadcms/plugin-google-analytics@1.0.0
+npm unpublish @zubricks/plugin-google-analytics@1.0.0
 ```
 
 For older versions, use deprecation instead:
 
 ```bash
-npm deprecate @payloadcms/plugin-google-analytics@1.0.0 "Reason for deprecation"
+npm deprecate @zubricks/plugin-google-analytics@1.0.0 "Reason for deprecation"
 ```
 
 ## Resources

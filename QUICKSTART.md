@@ -5,20 +5,21 @@ Get up and running with Google Analytics widgets in your Payload dashboard in 5 
 ## 1. Install
 
 ```bash
-pnpm add @payloadcms/plugin-google-analytics
+pnpm add @zubricks/plugin-google-analytics
 ```
 
 ## 2. Copy API Routes
 
 ```bash
-cp -r node_modules/@payloadcms/plugin-google-analytics/dist/api/analytics src/app/api/
+mkdir -p src/app/api
+cp -r node_modules/@zubricks/plugin-google-analytics/dist/api/analytics src/app/api/
 ```
 
 ## 3. Add to Config
 
 ```typescript
 // payload.config.ts
-import { googleAnalytics } from '@payloadcms/plugin-google-analytics'
+import { googleAnalytics } from '@zubricks/plugin-google-analytics'
 
 export default buildConfig({
   plugins: [

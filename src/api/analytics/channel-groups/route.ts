@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { MOCK_CHANNEL_GROUPS } from '../../../utils/mockData'
+import { MOCK_CHANNEL_GROUPS } from '../mockData'
 
 // Google Analytics Data API types
 interface AnalyticsRow {

@@ -47,25 +47,25 @@ export const googleAnalytics =
     const widgetDefinitions = {
       'analytics-overview': {
         slug: 'analytics-overview',
-        ComponentPath: '@payloadcms/plugin-google-analytics/widgets/AnalyticsMetrics#default',
+        ComponentPath: '@zubricks/plugin-google-analytics/widgets/AnalyticsMetrics#default',
         label: 'Analytics Overview',
         minWidth: 'medium' as const,
       },
       'top-pages': {
         slug: 'top-pages',
-        ComponentPath: '@payloadcms/plugin-google-analytics/widgets/AnalyticsTopPages#default',
+        ComponentPath: '@zubricks/plugin-google-analytics/widgets/AnalyticsTopPages#default',
         label: 'Top Pages',
         minWidth: 'medium' as const,
       },
       'active-users': {
         slug: 'active-users',
-        ComponentPath: '@payloadcms/plugin-google-analytics/widgets/ActiveUsers#default',
+        ComponentPath: '@zubricks/plugin-google-analytics/widgets/ActiveUsers#default',
         label: 'Active Users',
         minWidth: 'x-small' as const,
       },
       'channel-groups': {
         slug: 'channel-groups',
-        ComponentPath: '@payloadcms/plugin-google-analytics/widgets/ChannelGroups#default',
+        ComponentPath: '@zubricks/plugin-google-analytics/widgets/ChannelGroups#default',
         label: 'Sessions by Channel',
         minWidth: 'x-small' as const,
       },

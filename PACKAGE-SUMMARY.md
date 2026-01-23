@@ -2,7 +2,7 @@
 
 ## Package Information
 
-- **Name**: `@payloadcms/plugin-google-analytics`
+- **Name**: `@zubricks/plugin-google-analytics`
 - **Version**: 1.0.0
 - **License**: MIT
 - **Type**: ESM Module
