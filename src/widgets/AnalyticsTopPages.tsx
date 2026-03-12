@@ -1,7 +1,6 @@
 /* eslint-disable no-restricted-exports */
 'use client'
 
-import { type WidgetServerProps } from 'payload'
 import React, { useEffect, useState } from 'react'
 
 interface PageView {
@@ -14,7 +13,7 @@ interface AnalyticsData {
   topPages: PageView[]
 }
 
-export default function AnalyticsTopPages(_props: WidgetServerProps) {
+export default function AnalyticsTopPages({ period = '7days' }: { period?: string }) {
   const [data, setData] = useState<AnalyticsData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<null | string>(null)
@@ -22,7 +21,7 @@ export default function AnalyticsTopPages(_props: WidgetServerProps) {
   useEffect(() => {
     const fetchAnalytics = async () => {
       try {
-        const response = await fetch('/api/analytics/pageviews')
+        const response = await fetch(`/api/analytics/pageviews?period=${period}`)
 
         if (!response.ok) {
           throw new Error('Failed to fetch analytics data')
@@ -39,7 +38,7 @@ export default function AnalyticsTopPages(_props: WidgetServerProps) {
     }
 
     void fetchAnalytics()
-  }, [])
+  }, [period])
 
   if (loading) {
     return (

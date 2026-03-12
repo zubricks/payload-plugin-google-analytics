@@ -1,7 +1,6 @@
 /* eslint-disable no-restricted-exports */
 'use client'
 
-import { type WidgetServerProps } from 'payload'
 import React, { useEffect, useState } from 'react'
 
 interface ChartDataPoint {
@@ -19,7 +18,7 @@ interface AnalyticsData {
   totalUsers: number
 }
 
-export default function AnalyticsMetrics(_props: WidgetServerProps) {
+export default function AnalyticsMetrics({ period = '7days' }: { period?: string }) {
   const [data, setData] = useState<AnalyticsData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<null | string>(null)
@@ -27,7 +26,7 @@ export default function AnalyticsMetrics(_props: WidgetServerProps) {
   useEffect(() => {
     const fetchAnalytics = async () => {
       try {
-        const response = await fetch('/api/analytics/pageviews')
+        const response = await fetch(`/api/analytics/pageviews?period=${period}`)
 
         if (!response.ok) {
           throw new Error('Failed to fetch analytics data')
@@ -44,7 +43,7 @@ export default function AnalyticsMetrics(_props: WidgetServerProps) {
     }
 
     void fetchAnalytics()
-  }, [])
+  }, [period])
 
   if (loading) {
     return (

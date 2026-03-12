@@ -13,6 +13,18 @@ interface AnalyticsResponse {
   rowCount?: number
 }
 
+const periodToDateRange = (period: string): string => {
+  if (period === '30days') return '30daysAgo'
+  if (period === '90days') return '90daysAgo'
+  return '7daysAgo'
+}
+
+const periodToLabel = (period: string): string => {
+  if (period === '30days') return 'Last 30 days'
+  if (period === '90days') return 'Last 90 days'
+  return 'Last 7 days'
+}
+
 export async function GET(request: NextRequest) {
   try {
     // Check for demo mode
@@ -21,6 +33,10 @@ export async function GET(request: NextRequest) {
     if (useDemoData) {
       return NextResponse.json(MOCK_CHANNEL_GROUPS)
     }
+
+    const period = request.nextUrl.searchParams.get('period') ?? '7days'
+    const startDate = periodToDateRange(period)
+    const periodLabel = periodToLabel(period)
 
     const propertyId = process.env.GA_PROPERTY_ID
     const credentials = process.env.GA_CREDENTIALS
@@ -53,7 +69,7 @@ export async function GET(request: NextRequest) {
     const accessToken = await getAccessToken(credentialsJson)
 
     // Fetch channel group data
-    const channelData = await fetchChannelData(propertyId, accessToken)
+    const channelData = await fetchChannelData(propertyId, accessToken, startDate, periodLabel)
 
     return NextResponse.json(channelData)
   } catch (error) {
@@ -143,7 +159,7 @@ async function getAccessToken(credentials: {
   return tokenData.access_token
 }
 
-async function fetchChannelData(propertyId: string, accessToken: string) {
+async function fetchChannelData(propertyId: string, accessToken: string, startDate: string, periodLabel: string) {
   // Fetch sessions by primary channel group
   const response = await fetch(
     `https://analyticsdata.googleapis.com/v1beta/properties/${propertyId}:runReport`,
@@ -156,7 +172,7 @@ async function fetchChannelData(propertyId: string, accessToken: string) {
       body: JSON.stringify({
         dateRanges: [
           {
-            startDate: '7daysAgo',
+            startDate,
             endDate: 'today',
           },
         ],
@@ -202,7 +218,7 @@ async function fetchChannelData(propertyId: string, accessToken: string) {
   return {
     channels,
     totalSessions,
-    period: 'Last 7 days',
+    period: periodLabel,
     timestamp: new Date().toISOString(),
   }
 }

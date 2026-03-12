@@ -1,7 +1,6 @@
 /* eslint-disable no-restricted-exports */
 'use client'
 
-import { type WidgetServerProps } from 'payload'
 import React, { useEffect, useState } from 'react'
 
 interface Channel {
@@ -16,7 +15,7 @@ interface ChannelData {
   totalSessions: number
 }
 
-export default function ChannelGroups(_props: WidgetServerProps) {
+export default function ChannelGroups({ period = '7days' }: { period?: string }) {
   const [data, setData] = useState<ChannelData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<null | string>(null)
@@ -24,7 +23,7 @@ export default function ChannelGroups(_props: WidgetServerProps) {
   useEffect(() => {
     const fetchChannelData = async () => {
       try {
-        const response = await fetch('/api/analytics/channel-groups')
+        const response = await fetch(`/api/analytics/channel-groups?period=${period}`)
 
         if (!response.ok) {
           throw new Error('Failed to fetch channel data')
@@ -41,7 +40,7 @@ export default function ChannelGroups(_props: WidgetServerProps) {
     }
 
     void fetchChannelData()
-  }, [])
+  }, [period])
 
   if (loading) {
     return (

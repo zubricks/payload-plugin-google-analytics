@@ -32,6 +32,7 @@ export interface GoogleAnalyticsPluginConfig {
   defaultLayout?: Array<{
     widgetSlug: string
     width?: 'x-small' | 'small' | 'medium' | 'large' | 'x-large' | 'full'
+    data?: Record<string, unknown>
   }>
 }
 
@@ -43,17 +44,31 @@ export const googleAnalytics =
       defaultLayout,
     } = pluginConfig
 
+    const periodField = {
+      name: 'period',
+      type: 'select' as const,
+      defaultValue: '7days',
+      label: 'Time Period',
+      options: [
+        { label: 'Last 7 days', value: '7days' },
+        { label: 'Last 30 days', value: '30days' },
+        { label: 'Last 90 days', value: '90days' },
+      ],
+    }
+
     // Widget definitions
     const widgetDefinitions = {
       'analytics-overview': {
         slug: 'analytics-overview',
-        Component: '@zubricks/plugin-google-analytics/widgets/AnalyticsMetrics#default',
+        Component: '@zubricks/plugin-google-analytics/widgets/AnalyticsMetricsWrapper#default',
+        fields: [periodField],
         label: 'Analytics Overview',
         minWidth: 'medium' as const,
       },
       'top-pages': {
         slug: 'top-pages',
-        Component: '@zubricks/plugin-google-analytics/widgets/AnalyticsTopPages#default',
+        Component: '@zubricks/plugin-google-analytics/widgets/AnalyticsTopPagesWrapper#default',
+        fields: [periodField],
         label: 'Top Pages',
         minWidth: 'medium' as const,
       },
@@ -65,7 +80,8 @@ export const googleAnalytics =
       },
       'channel-groups': {
         slug: 'channel-groups',
-        Component: '@zubricks/plugin-google-analytics/widgets/ChannelGroups#default',
+        Component: '@zubricks/plugin-google-analytics/widgets/ChannelGroupsWrapper#default',
+        fields: [periodField],
         label: 'Sessions by Channel',
         minWidth: 'x-small' as const,
       },
@@ -89,9 +105,10 @@ export const googleAnalytics =
               ...(Array.isArray(incomingConfig.admin?.dashboard?.defaultLayout)
                 ? incomingConfig.admin.dashboard.defaultLayout
                 : []),
-              ...defaultLayout.map(({ widgetSlug, width }) => ({
+              ...defaultLayout.map(({ widgetSlug, width, data }) => ({
                 widgetSlug,
                 width: (width ?? 'medium') as 'x-small' | 'small' | 'medium' | 'large' | 'x-large' | 'full',
+                ...(data && { data }),
               })),
             ],
           }),
