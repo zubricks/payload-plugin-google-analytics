@@ -47,25 +47,25 @@ export const googleAnalytics =
     const widgetDefinitions = {
       'analytics-overview': {
         slug: 'analytics-overview',
-        ComponentPath: '@zubricks/plugin-google-analytics/widgets/AnalyticsMetrics#default',
+        Component: '@zubricks/plugin-google-analytics/widgets/AnalyticsMetrics#default',
         label: 'Analytics Overview',
         minWidth: 'medium' as const,
       },
       'top-pages': {
         slug: 'top-pages',
-        ComponentPath: '@zubricks/plugin-google-analytics/widgets/AnalyticsTopPages#default',
+        Component: '@zubricks/plugin-google-analytics/widgets/AnalyticsTopPages#default',
         label: 'Top Pages',
         minWidth: 'medium' as const,
       },
       'active-users': {
         slug: 'active-users',
-        ComponentPath: '@zubricks/plugin-google-analytics/widgets/ActiveUsers#default',
+        Component: '@zubricks/plugin-google-analytics/widgets/ActiveUsers#default',
         label: 'Active Users',
         minWidth: 'x-small' as const,
       },
       'channel-groups': {
         slug: 'channel-groups',
-        ComponentPath: '@zubricks/plugin-google-analytics/widgets/ChannelGroups#default',
+        Component: '@zubricks/plugin-google-analytics/widgets/ChannelGroups#default',
         label: 'Sessions by Channel',
         minWidth: 'x-small' as const,
       },
@@ -89,11 +89,14 @@ export const googleAnalytics =
               ...(Array.isArray(incomingConfig.admin?.dashboard?.defaultLayout)
                 ? incomingConfig.admin.dashboard.defaultLayout
                 : []),
-              ...defaultLayout,
+              ...defaultLayout.map(({ widgetSlug, width }) => ({
+                widgetSlug,
+                width: (width ?? 'medium') as 'x-small' | 'small' | 'medium' | 'large' | 'x-large' | 'full',
+              })),
             ],
           }),
         },
-      },
+      } as Config['admin'],
       // Store plugin config in a custom field for API routes to access
       custom: {
         ...incomingConfig.custom,
