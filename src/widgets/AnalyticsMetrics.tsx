@@ -85,6 +85,9 @@ export default function AnalyticsMetrics({ period = '7days' }: { period?: string
     )
   }
 
+  const periodLabel =
+    period === '30days' ? 'Last 30 days' : period === '90days' ? 'Last 90 days' : 'Last 7 days'
+
   // Format date for display (YYYYMMDD -> M/D)
   const formatDate = (dateStr: string) => {
     if (!dateStr || dateStr.length !== 8) {
@@ -144,7 +147,7 @@ export default function AnalyticsMetrics({ period = '7days' }: { period?: string
           Analytics Overview
         </h3>
         <p style={{ color: 'var(--theme-elevation-400)', fontSize: '13px', margin: 0 }}>
-          {data?.period || 'Last 7 days'}
+          {periodLabel}
         </p>
       </div>
 

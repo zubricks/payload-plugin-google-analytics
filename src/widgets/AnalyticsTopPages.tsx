@@ -80,6 +80,9 @@ export default function AnalyticsTopPages({ period = '7days' }: { period?: strin
     )
   }
 
+  const periodLabel =
+    period === '30days' ? 'Last 30 days' : period === '90days' ? 'Last 90 days' : 'Last 7 days'
+
   return (
     <div className="analytics-top-pages-widget card" style={{ height: '100%', padding: '24px' }}>
       {data?.topPages && data.topPages.length > 0 ? (
@@ -93,7 +96,7 @@ export default function AnalyticsTopPages({ period = '7days' }: { period?: strin
               marginBottom: '16px',
             }}
           >
-            Top Pages · {data?.period || 'Last 7 days'}
+            Top Pages · {periodLabel}
           </h3>
           {data.topPages.map((page, index) => (
             <div

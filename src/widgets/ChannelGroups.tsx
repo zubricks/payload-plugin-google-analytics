@@ -82,6 +82,9 @@ export default function ChannelGroups({ period = '7days' }: { period?: string })
     )
   }
 
+  const periodLabel =
+    period === '30days' ? 'Last 30 days' : period === '90days' ? 'Last 90 days' : 'Last 7 days'
+
   // Channel colors mapping
   const channelColors: Record<string, string> = {
     Direct: '#4285f4',
@@ -111,7 +114,7 @@ export default function ChannelGroups({ period = '7days' }: { period?: string })
           Sessions by Channel
         </h3>
         <p style={{ color: 'var(--theme-elevation-400)', fontSize: '13px', margin: 0 }}>
-          {data?.period || 'Last 7 days'}
+          {periodLabel}
         </p>
       </div>
 
