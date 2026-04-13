@@ -31,7 +31,7 @@
     "ga-widgets-light.png"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && cp src/widgets/*.scss dist/widgets/",
     "dev": "tsc --watch",
     "prepublishOnly": "pnpm run build"
   },
@@ -61,7 +61,9 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "recharts": "^2.15.0"
+  },
   "devDependencies": {
     "@types/node": "^22.10.5",
     "@types/react": "^19.0.6",
