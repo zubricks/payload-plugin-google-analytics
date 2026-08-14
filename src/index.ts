@@ -44,31 +44,19 @@ export const googleAnalytics =
       defaultLayout,
     } = pluginConfig
 
-    const periodField = {
-      name: 'period',
-      type: 'select' as const,
-      defaultValue: '7days',
-      label: 'Time Period',
-      options: [
-        { label: 'Last 7 days', value: '7days' },
-        { label: 'Last 30 days', value: '30days' },
-        { label: 'Last 90 days', value: '90days' },
-      ],
-    }
-
-    // Widget definitions
+    // Widget definitions. The time period is now selected inline on each
+    // widget (see PeriodSelect), so widgets no longer declare a `period`
+    // dashboard-config field.
     const widgetDefinitions = {
       'analytics-overview': {
         slug: 'analytics-overview',
         Component: '@zubricks/plugin-google-analytics/widgets/AnalyticsMetricsWrapper#default',
-        fields: [periodField],
         label: 'Analytics Overview',
         minWidth: 'medium' as const,
       },
       'top-pages': {
         slug: 'top-pages',
         Component: '@zubricks/plugin-google-analytics/widgets/AnalyticsTopPagesWrapper#default',
-        fields: [periodField],
         label: 'Top Pages',
         minWidth: 'medium' as const,
       },
@@ -81,7 +69,6 @@ export const googleAnalytics =
       'channel-groups': {
         slug: 'channel-groups',
         Component: '@zubricks/plugin-google-analytics/widgets/ChannelGroupsWrapper#default',
-        fields: [periodField],
         label: 'Sessions by Channel',
         minWidth: 'x-small' as const,
       },

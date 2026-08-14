@@ -1,0 +1,32 @@
+// Compact period selector for dashboard widgets. Mirrors the Jobs Runner
+// widget's `.jr-select` overrides so it sizes to Payload's button height and
+// stays visually consistent with the rest of the admin UI.
+.analytics-period-select {
+  min-width: 140px;
+
+  .rs__control {
+    height: var(--button-height, 1.5rem);
+    min-height: var(--button-height, 1.5rem);
+    padding-block: 0;
+  }
+
+  .rs__indicators,
+  .value-container,
+  .rs__value-container {
+    height: var(--button-height, 1.5rem);
+    min-height: var(--button-height, 1.5rem);
+  }
+
+  .rs__indicators {
+    align-items: center;
+  }
+
+  .dropdown-indicator {
+    align-items: center;
+    height: var(--button-height, 1.5rem);
+  }
+
+  .rs__single-value {
+    line-height: normal;
+  }
+}

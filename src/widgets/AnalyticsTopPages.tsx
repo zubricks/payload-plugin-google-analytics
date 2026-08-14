@@ -3,6 +3,8 @@
 
 import React, { useEffect, useState } from 'react'
 
+import { PeriodSelect, periodLabel } from './PeriodSelect.js'
+
 interface PageView {
   page: string
   views: number
@@ -13,7 +15,12 @@ interface AnalyticsData {
   topPages: PageView[]
 }
 
-export default function AnalyticsTopPages({ period = '7days' }: { period?: string }) {
+export default function AnalyticsTopPages({
+  period: initialPeriod = '7days',
+}: {
+  period?: string
+}) {
+  const [period, setPeriod] = useState(initialPeriod)
   const [data, setData] = useState<AnalyticsData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<null | string>(null)
@@ -80,24 +87,34 @@ export default function AnalyticsTopPages({ period = '7days' }: { period?: strin
     )
   }
 
-  const periodLabel =
-    period === '30days' ? 'Last 30 days' : period === '90days' ? 'Last 90 days' : 'Last 7 days'
-
   return (
-    <div className="analytics-top-pages-widget card" style={{ height: '100%', padding: '24px' }}>
+    <div
+      className="analytics-top-pages-widget card"
+      style={{ display: 'flex', flexDirection: 'column', height: '100%', padding: '24px' }}
+    >
+      <div
+        style={{
+          alignItems: 'center',
+          display: 'flex',
+          gap: '12px',
+          justifyContent: 'space-between',
+          marginBottom: '16px',
+        }}
+      >
+        <h3
+          style={{
+            color: 'var(--theme-text)',
+            fontSize: '16px',
+            fontWeight: 600,
+            margin: 0,
+          }}
+        >
+          Top Pages · {periodLabel(period)}
+        </h3>
+        <PeriodSelect onChange={setPeriod} value={period} />
+      </div>
       {data?.topPages && data.topPages.length > 0 ? (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%' }}>
-          <h3
-            style={{
-              color: 'var(--theme-text)',
-              fontSize: '16px',
-              fontWeight: 600,
-              margin: 0,
-              marginBottom: '16px',
-            }}
-          >
-            Top Pages · {periodLabel}
-          </h3>
           {data.topPages.map((page, index) => (
             <div
               key={index}

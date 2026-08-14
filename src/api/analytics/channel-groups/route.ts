@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { MOCK_CHANNEL_GROUPS } from '../mockData'
+import { getMockChannelGroups } from '../mockData'
 
 // Google Analytics Data API types
 interface AnalyticsRow {
@@ -27,14 +27,15 @@ const periodToLabel = (period: string): string => {
 
 export async function GET(request: NextRequest) {
   try {
+    const period = request.nextUrl.searchParams.get('period') ?? '7days'
+
     // Check for demo mode
     const useDemoData = process.env.GA_USE_DEMO_DATA === 'true'
 
     if (useDemoData) {
-      return NextResponse.json(MOCK_CHANNEL_GROUPS)
+      return NextResponse.json(getMockChannelGroups(period))
     }
 
-    const period = request.nextUrl.searchParams.get('period') ?? '7days'
     const startDate = periodToDateRange(period)
     const periodLabel = periodToLabel(period)
 

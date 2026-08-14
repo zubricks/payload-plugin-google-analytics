@@ -27,26 +27,31 @@ yarn add @zubricks/plugin-google-analytics
 pnpm add @zubricks/plugin-google-analytics
 ```
 
-### 2. Copy API Routes
+### 2. Re-export the API Routes
 
-The plugin requires three API routes to fetch data from Google Analytics. Copy the API routes to your Next.js app:
+The plugin ships three API route handlers. Rather than copying them into your app
+(which goes stale on every plugin update), create three thin route files that
+re-export the handlers from the package. Updates then flow in automatically when
+you bump the plugin version.
 
-```bash
-# From your project root (creates api directory if it doesn't exist)
-mkdir -p src/app/api
-cp -r node_modules/@zubricks/plugin-google-analytics/dist/api/analytics src/app/api/
+Create these files in your Next.js app:
+
+```ts
+// src/app/api/analytics/pageviews/route.ts
+export { GET } from '@zubricks/plugin-google-analytics/api/pageviews'
 ```
 
-Or manually create symlinks:
-
-```bash
-# Create api directory if it doesn't exist
-mkdir -p src/app/api/analytics
-cd src/app/api/analytics
-ln -s ../../../../node_modules/@zubricks/plugin-google-analytics/dist/api/analytics/active-users active-users
-ln -s ../../../../node_modules/@zubricks/plugin-google-analytics/dist/api/analytics/pageviews pageviews
-ln -s ../../../../node_modules/@zubricks/plugin-google-analytics/dist/api/analytics/channel-groups channel-groups
+```ts
+// src/app/api/analytics/active-users/route.ts
+export { GET } from '@zubricks/plugin-google-analytics/api/active-users'
 ```
+
+```ts
+// src/app/api/analytics/channel-groups/route.ts
+export { GET } from '@zubricks/plugin-google-analytics/api/channel-groups'
+```
+
+These files never need to change again — the handler logic lives in the package.
 
 ### 3. Google Cloud Setup
 

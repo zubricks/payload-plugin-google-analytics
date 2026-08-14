@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { MOCK_ANALYTICS_METRICS } from '../mockData'
+import { getMockAnalyticsMetrics } from '../mockData'
 
 // Google Analytics Data API types
 interface AnalyticsRow {
@@ -21,14 +21,15 @@ const periodToDateRange = (period: string): string => {
 
 export async function GET(request: NextRequest) {
   try {
+    const period = request.nextUrl.searchParams.get('period') ?? '7days'
+
     // Check for demo mode
     const useDemoData = process.env.GA_USE_DEMO_DATA === 'true'
 
     if (useDemoData) {
-      return NextResponse.json(MOCK_ANALYTICS_METRICS)
+      return NextResponse.json(getMockAnalyticsMetrics(period))
     }
 
-    const period = request.nextUrl.searchParams.get('period') ?? '7days'
     const startDate = periodToDateRange(period)
 
     const propertyId = process.env.GA_PROPERTY_ID

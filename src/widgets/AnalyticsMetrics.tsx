@@ -12,6 +12,8 @@ import {
   YAxis,
 } from 'recharts'
 
+import { PeriodSelect, periodLabel } from './PeriodSelect.js'
+
 import './AnalyticsMetrics.scss'
 
 interface ChartDataPoint {
@@ -29,7 +31,8 @@ interface AnalyticsData {
   totalUsers: number
 }
 
-export default function AnalyticsMetrics({ period = '7days' }: { period?: string }) {
+export default function AnalyticsMetrics({ period: initialPeriod = '7days' }: { period?: string }) {
+  const [period, setPeriod] = useState(initialPeriod)
   const [data, setData] = useState<AnalyticsData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<null | string>(null)
@@ -96,9 +99,6 @@ export default function AnalyticsMetrics({ period = '7days' }: { period?: string
     )
   }
 
-  const periodLabel =
-    period === '30days' ? 'Last 30 days' : period === '90days' ? 'Last 90 days' : 'Last 7 days'
-
   const formatDate = (dateStr: string) => {
     if (!dateStr || dateStr.length !== 8) {
       return dateStr
@@ -129,8 +129,11 @@ export default function AnalyticsMetrics({ period = '7days' }: { period?: string
   return (
     <div className="analytics-overview card">
       <div className="analytics-overview__header">
-        <h3 className="analytics-overview__title">Analytics Overview</h3>
-        <p className="analytics-overview__subtitle">{periodLabel}</p>
+        <div>
+          <h3 className="analytics-overview__title">Analytics Overview</h3>
+          <p className="analytics-overview__subtitle">{periodLabel(period)}</p>
+        </div>
+        <PeriodSelect onChange={setPeriod} value={period} />
       </div>
 
       <div className="analytics-overview__metrics">

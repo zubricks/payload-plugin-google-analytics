@@ -3,6 +3,8 @@
 
 import React, { useEffect, useState } from 'react'
 
+import { PeriodSelect, periodLabel } from './PeriodSelect.js'
+
 interface Channel {
   channel: string
   sessions: number
@@ -15,7 +17,8 @@ interface ChannelData {
   totalSessions: number
 }
 
-export default function ChannelGroups({ period = '7days' }: { period?: string }) {
+export default function ChannelGroups({ period: initialPeriod = '7days' }: { period?: string }) {
+  const [period, setPeriod] = useState(initialPeriod)
   const [data, setData] = useState<ChannelData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<null | string>(null)
@@ -82,9 +85,6 @@ export default function ChannelGroups({ period = '7days' }: { period?: string })
     )
   }
 
-  const periodLabel =
-    period === '30days' ? 'Last 30 days' : period === '90days' ? 'Last 90 days' : 'Last 7 days'
-
   // Channel colors mapping
   const channelColors: Record<string, string> = {
     Direct: '#4285f4',
@@ -101,21 +101,32 @@ export default function ChannelGroups({ period = '7days' }: { period?: string })
       className="channel-groups-widget card"
       style={{ display: 'flex', flexDirection: 'column', height: '100%', padding: '24px' }}
     >
-      <div style={{ marginBottom: '20px' }}>
-        <h3
-          style={{
-            color: 'var(--theme-text)',
-            fontSize: '18px',
-            fontWeight: 600,
-            margin: 0,
-            marginBottom: '4px',
-          }}
-        >
-          Sessions by Channel
-        </h3>
-        <p style={{ color: 'var(--theme-elevation-400)', fontSize: '13px', margin: 0 }}>
-          {periodLabel}
-        </p>
+      <div
+        style={{
+          alignItems: 'flex-start',
+          display: 'flex',
+          gap: '12px',
+          justifyContent: 'space-between',
+          marginBottom: '20px',
+        }}
+      >
+        <div>
+          <h3
+            style={{
+              color: 'var(--theme-text)',
+              fontSize: '18px',
+              fontWeight: 600,
+              margin: 0,
+              marginBottom: '4px',
+            }}
+          >
+            Sessions by Channel
+          </h3>
+          <p style={{ color: 'var(--theme-elevation-400)', fontSize: '13px', margin: 0 }}>
+            {periodLabel(period)}
+          </p>
+        </div>
+        <PeriodSelect onChange={setPeriod} value={period} />
       </div>
 
       <div

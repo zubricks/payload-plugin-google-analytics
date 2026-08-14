@@ -1,13 +1,15 @@
-@import '~@payloadcms/ui/scss';
-
 .analytics-overview {
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: base(1);
+  padding: var(--spacer-4); // 24px, matching the other analytics widgets
 
   &__header {
-    margin-bottom: base(0.75);
+    align-items: flex-start;
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+    margin-bottom: var(--spacer-2-5);
   }
 
   &__title {
@@ -34,7 +36,7 @@
     background: var(--theme-elevation-50);
     border-radius: 8px;
     min-width: 150px;
-    padding: base(0.75);
+    padding: var(--spacer-2-5);
   }
 
   &__metric-label {
@@ -57,7 +59,7 @@
     border-radius: 12px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     margin-top: 15px;
-    padding: base(0.75);
+    padding: var(--spacer-2-5);
   }
 
   // Recharts overrides
