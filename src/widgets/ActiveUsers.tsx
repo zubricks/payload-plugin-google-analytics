@@ -63,14 +63,14 @@ export default function ActiveUsers(_props: WidgetServerProps) {
           <div
             style={{
               animation: 'spin 1s linear infinite',
-              border: '2px solid var(--theme-elevation-150)',
+              border: '2px solid var(--color-border)',
               borderRadius: '50%',
-              borderTopColor: 'var(--theme-text)',
+              borderTopColor: 'var(--color-text)',
               height: '20px',
               width: '20px',
             }}
           />
-          <span style={{ color: 'var(--theme-elevation-400)', fontSize: '14px' }}>
+          <span style={{ color: 'var(--color-text-tertiary)', fontSize: '14px' }}>
             Loading active users...
           </span>
         </div>
@@ -86,10 +86,10 @@ export default function ActiveUsers(_props: WidgetServerProps) {
   if (error) {
     return (
       <div className="active-users-widget card" style={{ padding: '24px' }}>
-        <div style={{ color: 'var(--theme-error-500)', fontSize: '14px' }}>
+        <div style={{ color: 'var(--color-text-danger)', fontSize: '14px' }}>
           <strong>Error:</strong> {error}
         </div>
-        <div style={{ color: 'var(--theme-elevation-400)', fontSize: '12px', marginTop: '8px' }}>
+        <div style={{ color: 'var(--color-text-tertiary)', fontSize: '12px', marginTop: '8px' }}>
           Make sure the Google Analytics API endpoint is configured correctly.
         </div>
       </div>
@@ -103,7 +103,7 @@ export default function ActiveUsers(_props: WidgetServerProps) {
     >
       <div style={{ marginBottom: '20px' }}>
         <div style={{ alignItems: 'center', display: 'flex', gap: '12px', marginBottom: '4px' }}>
-          <h3 style={{ color: 'var(--theme-text)', fontSize: '18px', fontWeight: 600, margin: 0 }}>
+          <h3 style={{ color: 'var(--color-text)', fontSize: '18px', fontWeight: 600, margin: 0 }}>
             Active Users
           </h3>
           <div
@@ -116,14 +116,14 @@ export default function ActiveUsers(_props: WidgetServerProps) {
             }}
           />
         </div>
-        <p style={{ color: 'var(--theme-elevation-400)', fontSize: '13px', margin: 0 }}>
+        <p style={{ color: 'var(--color-text-tertiary)', fontSize: '13px', margin: 0 }}>
           Last updated: {data?.timestamp ? formatTime(data.timestamp) : 'N/A'}
         </p>
       </div>
 
       <div
         style={{
-          background: 'var(--theme-elevation-50)',
+          background: 'var(--color-bg)',
           borderRadius: '8px',
           marginBottom: '24px',
           padding: '24px',
@@ -132,7 +132,7 @@ export default function ActiveUsers(_props: WidgetServerProps) {
       >
         <div
           style={{
-            color: 'var(--theme-elevation-400)',
+            color: 'var(--color-text-tertiary)',
             fontSize: '13px',
             marginBottom: '15px',
             textTransform: 'uppercase',
@@ -140,10 +140,10 @@ export default function ActiveUsers(_props: WidgetServerProps) {
         >
           Active Right Now
         </div>
-        <div style={{ color: 'var(--theme-text)', fontSize: '48px', fontWeight: 700 }}>
+        <div style={{ color: 'var(--color-text)', fontSize: '48px', fontWeight: 700 }}>
           {data?.totalActiveUsers?.toLocaleString() || '0'}
         </div>
-        <div style={{ color: 'var(--theme-elevation-500)', fontSize: '12px', marginTop: '12px' }}>
+        <div style={{ color: 'var(--color-text-tertiary)', fontSize: '12px', marginTop: '12px' }}>
           users online
         </div>
       </div>
@@ -152,7 +152,7 @@ export default function ActiveUsers(_props: WidgetServerProps) {
         <div>
           <h4
             style={{
-              color: 'var(--theme-text)',
+              color: 'var(--color-text)',
               fontSize: '14px',
               fontWeight: 600,
               margin: 0,
@@ -172,7 +172,7 @@ export default function ActiveUsers(_props: WidgetServerProps) {
                 <div
                   key={index}
                   style={{
-                    background: 'var(--theme-elevation-100)',
+                    background: 'var(--color-bg)',
                     borderRadius: '4px',
                     padding: '12px',
                   }}
@@ -185,16 +185,16 @@ export default function ActiveUsers(_props: WidgetServerProps) {
                       marginBottom: '6px',
                     }}
                   >
-                    <span style={{ color: 'var(--theme-text)', fontSize: '13px', fontWeight: 500 }}>
+                    <span style={{ color: 'var(--color-text)', fontSize: '13px', fontWeight: 500 }}>
                       {location.country}
                     </span>
-                    <span style={{ color: 'var(--theme-text)', fontSize: '14px', fontWeight: 600 }}>
+                    <span style={{ color: 'var(--color-text)', fontSize: '14px', fontWeight: 600 }}>
                       {location.activeUsers}
                     </span>
                   </div>
                   <div
                     style={{
-                      background: 'var(--theme-elevation-150)',
+                      background: 'var(--color-bg-tertiary)',
                       borderRadius: '4px',
                       height: '6px',
                       overflow: 'hidden',

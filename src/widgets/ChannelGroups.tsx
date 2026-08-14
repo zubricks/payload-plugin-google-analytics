@@ -52,14 +52,14 @@ export default function ChannelGroups({ period: initialPeriod = '7days' }: { per
           <div
             style={{
               animation: 'spin 1s linear infinite',
-              border: '2px solid var(--theme-elevation-150)',
+              border: '2px solid var(--color-border)',
               borderRadius: '50%',
-              borderTopColor: 'var(--theme-text)',
+              borderTopColor: 'var(--color-text)',
               height: '20px',
               width: '20px',
             }}
           />
-          <span style={{ color: 'var(--theme-elevation-400)', fontSize: '14px' }}>
+          <span style={{ color: 'var(--color-text-tertiary)', fontSize: '14px' }}>
             Loading channels...
           </span>
         </div>
@@ -75,10 +75,10 @@ export default function ChannelGroups({ period: initialPeriod = '7days' }: { per
   if (error) {
     return (
       <div className="channel-groups-widget card" style={{ padding: '24px' }}>
-        <div style={{ color: 'var(--theme-error-500)', fontSize: '14px' }}>
+        <div style={{ color: 'var(--color-text-danger)', fontSize: '14px' }}>
           <strong>Error:</strong> {error}
         </div>
-        <div style={{ color: 'var(--theme-elevation-400)', fontSize: '12px', marginTop: '8px' }}>
+        <div style={{ color: 'var(--color-text-tertiary)', fontSize: '12px', marginTop: '8px' }}>
           Make sure the Google Analytics API endpoint is configured correctly.
         </div>
       </div>
@@ -113,7 +113,7 @@ export default function ChannelGroups({ period: initialPeriod = '7days' }: { per
         <div>
           <h3
             style={{
-              color: 'var(--theme-text)',
+              color: 'var(--color-text)',
               fontSize: '18px',
               fontWeight: 600,
               margin: 0,
@@ -122,7 +122,7 @@ export default function ChannelGroups({ period: initialPeriod = '7days' }: { per
           >
             Sessions by Channel
           </h3>
-          <p style={{ color: 'var(--theme-elevation-400)', fontSize: '13px', margin: 0 }}>
+          <p style={{ color: 'var(--color-text-tertiary)', fontSize: '13px', margin: 0 }}>
             {periodLabel(period)}
           </p>
         </div>
@@ -131,7 +131,7 @@ export default function ChannelGroups({ period: initialPeriod = '7days' }: { per
 
       <div
         style={{
-          background: 'var(--theme-elevation-50)',
+          background: 'var(--color-bg)',
           borderRadius: '8px',
           marginBottom: '20px',
           padding: '20px',
@@ -140,7 +140,7 @@ export default function ChannelGroups({ period: initialPeriod = '7days' }: { per
       >
         <div
           style={{
-            color: 'var(--theme-elevation-400)',
+            color: 'var(--color-text-tertiary)',
             fontSize: '11px',
             marginBottom: '8px',
             textTransform: 'uppercase',
@@ -148,7 +148,7 @@ export default function ChannelGroups({ period: initialPeriod = '7days' }: { per
         >
           Total Sessions
         </div>
-        <div style={{ color: 'var(--theme-text)', fontSize: '32px', fontWeight: 700 }}>
+        <div style={{ color: 'var(--color-text)', fontSize: '32px', fontWeight: 700 }}>
           {data?.totalSessions?.toLocaleString() || '0'}
         </div>
       </div>
@@ -167,7 +167,7 @@ export default function ChannelGroups({ period: initialPeriod = '7days' }: { per
               <div
                 key={index}
                 style={{
-                  background: 'var(--theme-elevation-100)',
+                  background: 'var(--color-bg)',
                   borderRadius: '4px',
                   padding: '12px',
                 }}
@@ -189,17 +189,17 @@ export default function ChannelGroups({ period: initialPeriod = '7days' }: { per
                         width: '12px',
                       }}
                     />
-                    <span style={{ color: 'var(--theme-text)', fontSize: '13px', fontWeight: 500 }}>
+                    <span style={{ color: 'var(--color-text)', fontSize: '13px', fontWeight: 500 }}>
                       {channel.channel}
                     </span>
                   </div>
-                  <span style={{ color: 'var(--theme-elevation-400)', fontSize: '12px' }}>
+                  <span style={{ color: 'var(--color-text-tertiary)', fontSize: '12px' }}>
                     {channel.sessions.toLocaleString()} ({percentage}%)
                   </span>
                 </div>
                 <div
                   style={{
-                    background: 'var(--theme-elevation-150)',
+                    background: 'var(--color-bg-tertiary)',
                     borderRadius: '4px',
                     height: '6px',
                     overflow: 'hidden',

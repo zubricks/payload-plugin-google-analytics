@@ -15,13 +15,13 @@
   &__title {
     font-size: 1.125rem;
     font-weight: 600;
-    color: var(--theme-text);
+    color: var(--color-text);
     margin: 0 0 4px;
   }
 
   &__subtitle {
     font-size: 0.8125rem;
-    color: var(--theme-elevation-400);
+    color: var(--color-text-tertiary);
     margin: 0;
   }
 
@@ -33,14 +33,14 @@
   }
 
   &__metric-card {
-    background: var(--theme-elevation-50);
+    background: var(--color-bg);
     border-radius: 8px;
     min-width: 150px;
     padding: var(--spacer-2-5);
   }
 
   &__metric-label {
-    color: var(--theme-elevation-400);
+    color: var(--color-text-tertiary);
     font-size: 0.6875rem;
     font-weight: 500;
     margin-bottom: 8px;
@@ -48,34 +48,48 @@
   }
 
   &__metric-value {
-    color: var(--theme-text);
+    color: var(--color-text);
     font-size: 1.5rem;
     font-weight: 700;
   }
 
   &__chart {
-    background: var(--theme-elevation-50);
-    border: 1px solid var(--theme-elevation-100);
+    // Base surface (not --color-bg-tertiary) so the --color-border grid lines
+    // contrast — tertiary and border resolve to the same ramp value.
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
     border-radius: 12px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     margin-top: 15px;
     padding: var(--spacer-2-5);
   }
 
-  // Recharts overrides
-  .recharts-cartesian-axis-tick-value {
+  // Recharts overrides. Colors passed to recharts as props render as SVG
+  // presentation attributes, which don't resolve CSS variables — so drive them
+  // from CSS here with v4 design tokens (the old --theme-elevation-* names do
+  // not exist in Payload v4, which is why the ticks fell back to black).
+  .recharts-cartesian-axis-tick-value,
+  .recharts-cartesian-axis-tick-value tspan {
     font-size: 11px;
-    fill: var(--theme-elevation-500);
+    fill: var(--color-text-tertiary) !important;
+  }
+
+  .recharts-cartesian-grid line {
+    stroke: var(--color-border) !important;
+  }
+
+  .recharts-cartesian-axis-line {
+    stroke: var(--color-border) !important;
   }
 
   .recharts-legend-item-text {
     font-size: 12px !important;
-    color: var(--theme-elevation-700) !important;
+    color: var(--color-text-secondary) !important;
   }
 
   .recharts-default-tooltip {
-    background: var(--theme-elevation-0) !important;
-    border: 1px solid var(--theme-elevation-150) !important;
+    background: var(--color-bg) !important;
+    border: 1px solid var(--color-border) !important;
     border-radius: 8px !important;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
   }

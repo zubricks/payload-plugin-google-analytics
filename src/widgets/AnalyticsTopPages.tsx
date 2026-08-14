@@ -54,14 +54,14 @@ export default function AnalyticsTopPages({
           <div
             style={{
               animation: 'spin 1s linear infinite',
-              border: '2px solid var(--theme-elevation-150)',
+              border: '2px solid var(--color-border)',
               borderRadius: '50%',
-              borderTopColor: 'var(--theme-text)',
+              borderTopColor: 'var(--color-text)',
               height: '20px',
               width: '20px',
             }}
           />
-          <span style={{ color: 'var(--theme-elevation-400)', fontSize: '14px' }}>
+          <span style={{ color: 'var(--color-text-tertiary)', fontSize: '14px' }}>
             Loading top pages...
           </span>
         </div>
@@ -77,10 +77,10 @@ export default function AnalyticsTopPages({
   if (error) {
     return (
       <div className="analytics-top-pages-widget card" style={{ padding: '24px' }}>
-        <div style={{ color: 'var(--theme-error-500)', fontSize: '14px' }}>
+        <div style={{ color: 'var(--color-text-danger)', fontSize: '14px' }}>
           <strong>Error:</strong> {error}
         </div>
-        <div style={{ color: 'var(--theme-elevation-400)', fontSize: '12px', marginTop: '8px' }}>
+        <div style={{ color: 'var(--color-text-tertiary)', fontSize: '12px', marginTop: '8px' }}>
           Make sure the Google Analytics API endpoint is configured correctly.
         </div>
       </div>
@@ -103,7 +103,7 @@ export default function AnalyticsTopPages({
       >
         <h3
           style={{
-            color: 'var(--theme-text)',
+            color: 'var(--color-text)',
             fontSize: '16px',
             fontWeight: 600,
             margin: 0,
@@ -120,7 +120,7 @@ export default function AnalyticsTopPages({
               key={index}
               style={{
                 alignItems: 'center',
-                background: 'var(--theme-elevation-100)',
+                background: 'var(--color-bg)',
                 borderRadius: '4px',
                 display: 'flex',
                 fontSize: '13px',
@@ -131,9 +131,9 @@ export default function AnalyticsTopPages({
               <div style={{ alignItems: 'center', display: 'flex', flex: 1, gap: '12px' }}>
                 <span
                   style={{
-                    background: 'var(--theme-elevation-150)',
+                    background: 'var(--color-bg-tertiary)',
                     borderRadius: '4px',
-                    color: 'var(--theme-elevation-500)',
+                    color: 'var(--color-text-tertiary)',
                     fontSize: '11px',
                     fontWeight: 600,
                     minWidth: '24px',
@@ -145,7 +145,7 @@ export default function AnalyticsTopPages({
                 </span>
                 <span
                   style={{
-                    color: 'var(--theme-text)',
+                    color: 'var(--color-text)',
                     flex: 1,
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
@@ -158,7 +158,7 @@ export default function AnalyticsTopPages({
               </div>
               <span
                 style={{
-                  color: 'var(--theme-text)',
+                  color: 'var(--color-text)',
                   fontSize: '14px',
                   fontWeight: 600,
                   marginLeft: '16px',
@@ -172,7 +172,7 @@ export default function AnalyticsTopPages({
       ) : (
         <div
           style={{
-            color: 'var(--theme-elevation-400)',
+            color: 'var(--color-text-tertiary)',
             fontSize: '14px',
             padding: '20px',
             textAlign: 'center',
